@@ -2,8 +2,8 @@
 
 <launch>
   <!-- Robot pose -->
-  <arg name="x" default="-0.5"/>
-  <arg name="y" default="-1"/>
+  <arg name="x" default="0"/>
+  <arg name="y" default="0"/>
   <arg name="z" default="0"/>
   <arg name="roll" default="0"/>
   <arg name="pitch" default="0"/>
@@ -13,7 +13,7 @@
   <include file="$(find my_robot)/launch/robot_description.launch"/>
 
   <!-- World File -->
-  <arg name="world_file" default="$(find my_robot)/worlds/UdacityOffice.world"/>
+  <arg name="world_file" default="$(find my_robot)/worlds/my_world.world"/>
 
   <!-- Launch Gazebo World -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -36,7 +36,7 @@
     name="urdf_spawner"
     pkg="gazebo_ros"
     type="spawn_model"
-    args="-param robot_description -urdf -x -0.0 -y 0 -z 0.0 -Y 0.0 -model my_robot1"
+    args="-param robot_description -urdf -x -7.0 -y 0 -z 0.0 -Y 0.0 -model my_robot1"
     output="screen" />
 
   <!--launch rviz-->

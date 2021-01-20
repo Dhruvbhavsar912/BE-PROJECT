@@ -3,7 +3,7 @@
      Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot name="my_robot1">
-  <link name="robot_footprint">
+  <link name="base_link">
     <inertial>
       <origin
         xyz="-5.5511E-17 0 -0.0025"
@@ -88,7 +88,7 @@
       xyz="0 -0.10821 0.0185"
       rpy="1.5708 0 1.5708" />
     <parent
-      link="robot_footprint" />
+      link="base_link" />
     <child
       link="rmotor" />
     <axis
@@ -192,7 +192,7 @@
       xyz="0 0.10821 0.0185"
       rpy="-1.5708 0 -1.5708" />
     <parent
-      link="robot_footprint" />
+      link="base_link" />
     <child
       link="lmotor" />
     <axis
@@ -296,7 +296,7 @@
       xyz="0.076513 0.076513 0"
       rpy="1.5708 0 1.5708" />
     <parent
-      link="robot_footprint" />
+      link="base_link" />
     <child
       link="stud1" />
     <axis
@@ -348,7 +348,7 @@
       xyz="0.076513 -0.076513 0"
       rpy="1.5708 0 1.5708" />
     <parent
-      link="robot_footprint" />
+      link="base_link" />
     <child
       link="stud2" />
     <axis
@@ -400,7 +400,7 @@
       xyz="-0.076513 0.076513 0"
       rpy="1.5708 0 1.5708" />
     <parent
-      link="robot_footprint" />
+      link="base_link" />
     <child
       link="stud3" />
     <axis
@@ -452,7 +452,7 @@
       xyz="-0.076513 -0.076513 0"
       rpy="1.5708 0 1.5708" />
     <parent
-      link="robot_footprint" />
+      link="base_link" />
     <child
       link="stud4" />
     <axis
@@ -506,7 +506,7 @@
       xyz="0.17321 0 -0.005"
       rpy="1.5708 0 1.5708" />
     <parent
-      link="robot_footprint" />
+      link="base_link" />
     <child
       link="front_caster" />
     <axis
@@ -560,7 +560,7 @@
       xyz="-0.17321 0 -0.005"
       rpy="1.5708 0 1.5708" />
     <parent
-      link="robot_footprint" />
+      link="base_link" />
     <child
       link="back_caster" />
     <axis
@@ -612,7 +612,7 @@
       xyz="0 0 0.12811"
       rpy="1.5708 0 1.5708" />
     <parent
-      link="robot_footprint" />
+      link="base_link" />
     <child
       link="level2" />
     <axis
@@ -670,7 +670,7 @@
       xyz="0 0 0.245"
       rpy="1.5708 0 1.5708" />
     <parent
-      link="robot_footprint" />
+      link="base_link" />
     <child
       link="level3" />
     <axis
@@ -704,7 +704,7 @@
       rpy="0 0 0" />
 
     <parent
-      link="robot_footprint" />
+      link="base_link" />
     <child link="laser"/>
     <limit effort="1000" lower="0" upper="6.28" velocity="100"/>
     <axis rpy="0 0 0" xyz="0.02 0 0.178"/>
@@ -733,7 +733,7 @@
       <odometryFrame>odom</odometryFrame>
       <odometryTopic>odom</odometryTopic>
       <odometrySource>0</odometrySource>
-      <robotBaseFrame>robot_footprint</robotBaseFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
       <legacyMode>true</legacyMode>
     </plugin>
   </gazebo>
