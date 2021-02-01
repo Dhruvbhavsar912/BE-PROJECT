@@ -1,0 +1,3 @@
+<launch>
+  <node name="specific_point_node" pkg="my_robot" type="specific_point.py" output="screen"></node>
+</launch>
