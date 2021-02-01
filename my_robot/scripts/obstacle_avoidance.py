@@ -196,74 +196,11 @@ def take_action(regions,msg):
 
 
 
-            '''
-            linear_x = 0.0
-            angular_z = 0.0
-            linear_y=0.0
-            print("hi")
-
-            mytext = 'पेहली फुर्सत गो निकल'
-            print('hi')
-
-            # Language in which you want to convert
-            language = 'hi'
-
-            myobj = gTTS(text=mytext, lang=language, slow=False)
-
-            # Saving the converted audio in a mp3 file named
-            # welcome1
-            myobj.save("welcome1.mp3")
-
-            # Playing the converted file
-            os.system("mpg321 welcome1.mp3")
-            '''
-
-            
-
-
-
-
-
     except rospy.ROSInterruptException:
         rospy.loginfo("Ctrl-C caught. Quitting")
 
 
 
-    '''
-    
-    if regions['front'] < 1 and regions['fleft'] > 1 and regions['fright'] > 1:
-        state_description = 'case 2 - front'
-        linear_x = 0
-        angular_z = -0.3
-    elif regions['front'] > 1 and regions['fleft'] > 1 and regions['fright'] < 1:
-        state_description = 'case 3 - fright'
-        linear_x = 0
-        angular_z = -0.3
-    elif regions['front'] > 1 and regions['fleft'] < 1 and regions['fright'] > 1:
-        state_description = 'case 4 - fleft'
-        linear_x = 0
-        angular_z = 0.3
-    elif regions['front'] < 1 and regions['fleft'] > 1 and regions['fright'] < 1:
-        state_description = 'case 5 - front and fright'
-        linear_x = 0
-        angular_z = -0.3
-    elif regions['front'] < 1 and regions['fleft'] < 1 and regions['fright'] > 1:
-        state_description = 'case 6 - front and fleft'
-        linear_x = 0
-        angular_z = 0.3
-    elif regions['front'] < 1 and regions['fleft'] < 1 and regions['fright'] < 1:
-        state_description = 'case 7 - front and fleft and fright'
-        linear_x = 0
-        angular_z = -0.3
-    elif regions['front'] > 1 and regions['fleft'] < 1 and regions['fright'] < 1:
-        state_description = 'case 8 - fleft and fright'
-        linear_x = 0
-        angular_z = -0.3
-    else:
-        state_description = 'unknown case'
-    '''
-
-    
 
 
 def main():
