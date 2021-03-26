@@ -163,13 +163,10 @@ if __name__ == '__main__':
                     else:
                         x1 = 0.0
                         y1 = 0.0
-
             except sr.RequestError as e:
-
                 print("Could not request results; {0}".format(e))
 
             except sr.UnknownValueError:
-                
                 print("unknown error occured")
 
         # Customize the following values so they are appropriate for your location

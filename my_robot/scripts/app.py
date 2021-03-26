@@ -16,6 +16,13 @@ import time
 from gazebo_msgs.srv import GetModelState
 import pdb
 
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+cred=credentials.Certificate('./speechapp-8c50f-firebase-adminsdk-5o00o-c359c978ea.json')
+
+default_app = firebase_admin.initialize_app(cred)
+
 
 
 class Block:
@@ -106,70 +113,74 @@ if __name__ == '__main__':
 
         
         navigator = GoToPose()
-        r = sr.Recognizer()
+        
 
         # Loop infinitely for user to
         # speak
         n = 0
+        k = 0
         while(n == 0):
 
             # Exception handling to handle
             # exceptions at the runtime
             try:
+                print("Speak")
+                db=firestore.client()
 
-                # use the microphone as source for input.
-                with sr.Microphone() as source2:
+                collection = db.collection('data')  # opens 'places' collection
+                doc = collection.document('1')
 
-                    # wait for a second to let the recognizer
-                    # adjust the energy threshold based on
-                    # the surrounding noise level
-                    r.adjust_for_ambient_noise(source2, duration=0.2)
+                res = doc.get().to_dict()
+                MyText1=res['text']
+                MyText=res['text']
 
-                    # listens for the user's input
-                    audio2 = r.listen(source2)
 
-                    # Using ggogle to recognize audio
-                    MyText = r.recognize_google(audio2)
-                    MyText = MyText.lower()
+                while(MyText1==MyText):
+                    
+                    db=firestore.client()
 
-                    print("Did you say "+MyText)
-                    print("OK")
-                    n = int(input())
+                    collection = db.collection('data')  # opens 'places' collection
+                    doc = collection.document('1')
 
-                    if MyText == "origin":
-                        x1 = 0.0
-                        y1 = 0.0
-                    elif MyText == "room 1":
-                        x1 = -5.88
-                        y1 = 5.65
-                    elif MyText == "room 2":
-                        x1 = -7.12
-                        y1 = -6.3
-                    elif MyText == "room 3":
-                        x1 = 2.15
-                        y1 = 5.65
-                    elif MyText == "room 4":
-                        x1 = 2.5
-                        y1 = -6.3
-                    elif MyText == "room 5":
-                        x1 = 15.87
-                        y1 = 6.69
-                    elif MyText == "room 6":
-                        x1 = 16.29
-                        y1 = -5.58
-                    elif MyText=="yogesh":
-                        tuto =GoToPose()
-                        x1,y1=tuto.show_gazebo_models()
-                    else:
-                        x1 = 0.0
-                        y1 = 0.0
+                    res = doc.get().to_dict()
 
-            except sr.RequestError as e:
+                    # use the microphone as source for input.
+                    MyText=res['text']
+                   
+                    
 
-                print("Could not request results; {0}".format(e))
+                MyText = MyText.lower()
+                print(MyText)
+                n=1
+                if MyText == "origin":
+                    x1 = 0.0
+                    y1 = 0.0
+                elif MyText == "room 1":
+                    x1 = -5.88
+                    y1 = 5.65
+                elif MyText == "room 2":
+                    x1 = -7.12
+                    y1 = -6.3
+                elif MyText == "room 3":
+                    x1 = 2.15
+                    y1 = 5.65
+                elif MyText == "room 4":
+                    x1 = 2.5
+                    y1 = -6.3
+                elif MyText == "room 5":
+                    x1 = 15.87
+                    y1 = 6.69
+                elif MyText == "room 6":
+                    x1 = 16.29
+                    y1 = -5.58
+                elif MyText=="yogesh":
+                    tuto =GoToPose()
+                    x1,y1=tuto.show_gazebo_models()
+                else:
+                    n=0
 
+           
             except sr.UnknownValueError:
-                
                 print("unknown error occured")
 
         # Customize the following values so they are appropriate for your location

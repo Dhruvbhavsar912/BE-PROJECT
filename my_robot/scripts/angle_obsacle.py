@@ -62,6 +62,7 @@ def get_rotation (msg):
 
 
 def clbk_laser(msg):
+    print("go")
     regions = {
         'right':  min(min(msg.ranges[0:143]), 10),
         'fright': min(min(msg.ranges[144:287]), 10),
@@ -70,8 +71,6 @@ def clbk_laser(msg):
         'left':   min(min(msg.ranges[576:713]), 10),
     }
 
-    sub1 = rospy.Subscriber ('/odom', Odometry, get_rotation)
-    sub2 = rospy.Subscriber ('/move_base/goal', MoveBaseActionGoal , get_goal)
 
     take_action(regions,msg)
 
@@ -89,28 +88,29 @@ def take_action(regions,msg):
         goal=Point()
         goal.x=goal_x
         goal.y=goal_y
-        #inc_x=goal.x-x
-        #inc_y=goal.y-y
-        inc_x=-3.5
-        inc_y=-3.1
+        inc_x=goal.x-x
+        inc_y=goal.y-y
         
 
 
         angle_to_rad=atan2(inc_y,inc_x)
-    
+        print('go1')
         print(x)
         print(y)
         angle_to_goal=angle_to_rad*180/3.14
         print(angle_to_goal)
-
-        pub1= rospy.Publisher('/cmd_vel',Twist,queue_size=1)
-        if ((regions['front'] < 1.0 and regions['fleft'] < 1.0) or (regions['front'] < 1.0 and regions['fright'] < 1.0) or (regions['fleft'] < 0.51 ) or (regions['fright'] < 0.51 ) or (regions['fright'] < 1.0 and regions['fleft'] < 1.0)  or (regions['fleft']<0.51) or (regions['fright']<1.0)) and (regions['front']<1.0) :
+        if ((regions['front'] < 1.0 and regions['fleft'] < 1.0) or (regions['front'] < 1.0 and regions['fright'] < 1.0) or (regions['fleft'] < 0.51 ) or (regions['fright'] < 0.51 ) or (regions['left'] < 0.51 ) or (regions['right'] < 0.51 ) or (regions['fright'] < 1.0 and regions['fleft'] < 1.0)  or (regions['fleft']<0.51) or (regions['fright']<1.0)) and (regions['front']<1.0) :
 
             if (-90.0<angle_to_goal<0.0) or (90.0<angle_to_goal<180.0):
                 #(regions['fright']+regions['right'])>(regions['fleft']+regions['left'])
                 print(angle_to_goal)
                 print('right')
-                if regions['fright']<1.8:
+
+                print('**********************')
+                print(regions['fright'])
+                print(regions['right'])
+                print('*********************')
+                if regions['fright']<1.1:
                     target = 220 
                     print('left')
                 else:
@@ -134,14 +134,14 @@ def take_action(regions,msg):
                     print(region)
                     target_rad=target*math.pi/180 
                     command.angular.z =kp*(target_rad-yaw)
-                    pub1.publish(command)
+                    pub.publish(command)
                     print("Target={} current:{}".format(round(target_rad,2),round(yaw,2)))
                      
                     if b==region['front']:
                         break
                     else:
                         b=region['front'] 
-                    if (region['front'] > 1.0 and region['fleft'] > 1.0) or (region['front'] > 1.0 and region['fright'] > 1.0) or (region['fright'] > 1.0 and region['fleft'] > 1.0) or (region['front'] > 2.5) :
+                    if (region['front'] > 1.0 and region['fleft'] > 1.0) or (region['right'] > 0.77) or (region['left'] > 0.77) or (region['front'] > 1.0 and region['fright'] > 1.0) or (region['front'] > 2.5) :
                         print('---------------------------------------')
                         print(region['fleft'])
                         print(region['fright'])
@@ -153,7 +153,11 @@ def take_action(regions,msg):
             else:
                 print(angle_to_goal)
                 print('left')
-                if regions['fleft']<1.8:
+                print('**********************')
+                print(regions['fleft'])
+                print(regions['left'])
+                print('*********************')
+                if regions['fleft']<1.1:
                     target = -220 
                     print('right')
                 else:
@@ -174,7 +178,7 @@ def take_action(regions,msg):
                     
                     target_rad=target*math.pi/180 
                     command.angular.z =kp*(target_rad-yaw)
-                    pub1.publish(command)
+                    pub.publish(command)
                     print("Target={} current:{}".format(round(target_rad,2),round(yaw,2)))
                      
                     if b==region['front']:
@@ -182,17 +186,44 @@ def take_action(regions,msg):
                     else:
                         b=region['front']
                 
-                    if (region['front'] > 1.0 and region['fleft'] > 1.0) or (region['front'] > 1.0 and region['fright'] > 1.0) or (region['fright'] > 1.0 and region['fleft'] > 1.0) or (region['front'] > 2.5) :
+                    if (region['front'] > 1.0 and region['fleft'] > 1.0) or (region['front'] > 1.0 and region['fright'] > 1.0) or (region['right'] > 0.77) or (region['left'] > 0.77) or (region['front'] > 2.5) :
                         print('---------------------------------------')
                         print(region['fleft'])
                         print(region['fright'])
                         print(region['front'])
                         print(regions)
                         print("---------------------------------------")   
-
                         break
 
             #r.sleep()
+
+
+
+            '''
+            linear_x = 0.0
+            angular_z = 0.0
+            linear_y=0.0
+            print("hi")
+
+            mytext = 'पेहली फुर्सत गो निकल'
+            print('hi')
+
+            # Language in which you want to convert
+            language = 'hi'
+
+            myobj = gTTS(text=mytext, lang=language, slow=False)
+
+            # Saving the converted audio in a mp3 file named
+            # welcome1
+            myobj.save("welcome1.mp3")
+
+            # Playing the converted file
+            os.system("mpg321 welcome1.mp3")
+            '''
+
+            
+
+
 
 
 
@@ -201,6 +232,7 @@ def take_action(regions,msg):
 
 
 
+    
 
 
 def main():
@@ -209,6 +241,9 @@ def main():
     rospy.init_node('reading_laser')
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+
+    sub1 = rospy.Subscriber ('/odom', Odometry, get_rotation)
+    sub2 = rospy.Subscriber ('/move_base/goal', MoveBaseActionGoal , get_goal)
 
     sub = rospy.Subscriber('/scan', LaserScan, clbk_laser)
 
