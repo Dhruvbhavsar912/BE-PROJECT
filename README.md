@@ -25,17 +25,18 @@ On the bottom left we can see the camera view embeded on Gofer for Object Detect
 
 ![image](https://user-images.githubusercontent.com/64368871/205317045-2a639f37-6fbe-4b3c-ab16-c155b851efe4.png)
 
-Below image tests the robot's obstacle avoidance algorithm in extreme conditions.
+Below image tests the robot's obstacle avoidance algorithm in extreme conditions for the obstacles not mapped.
 
 ![image](https://user-images.githubusercontent.com/64368871/205317213-041597c7-74ed-4807-953f-81ff1366c327.png)
 
+# Our college EXTC Department
+
+The environment is created in Blender and imported into a Gazebo world.
 
 ![image](https://user-images.githubusercontent.com/64368871/205317603-56830110-7a3d-4277-9f1f-9e9fb896f1e9.png)
 
 
 ![image](https://user-images.githubusercontent.com/64368871/205317519-d72d3aab-54d2-40e4-b0fa-18f96173fdf9.png)
-
-
 
 
 
